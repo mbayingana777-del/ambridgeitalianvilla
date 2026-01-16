@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ambridge Italian Villa</title>
+
+<style>
+/* ---------- GLOBAL ---------- */
+*{margin:0;padding:0;box-sizing:border-box;}
+html, body{overflow-x:hidden;}
+
+body{
+  font-family:"Helvetica Neue", Arial, sans-serif;
+  color:#fff;
+  scroll-behavior:smooth;
+
+  /* PAGE BACKGROUND IMAGE (replace this file) */
+  background:url("villa-bg.jpg") center/cover no-repeat fixed;
+  position:relative;
+}
+
+/* DARK GRADIENT OVER BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.88));
+  z-index:-1;
+}
+
+/* ---------- HEADER ---------- */
+header{
+  background:rgba(17,17,17,0.92);
+  backdrop-filter: blur(8px);
+  padding:0.4rem 1.25rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:2px solid #222;
+  gap:1.5rem;
+}
+
+header h1{display:flex;align-items:center;line-height:0;}
+header h1 img{
+  height:40px;                 /* keep header size the same */
+  width:auto;
+  object-fit:contain;
+
+  /* make logo “pop” without making header taller */
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,.75));
+  transform: translateZ(0);
+}
+header h1 img:hover{
+  filter: drop-shadow(0 2px 14px rgba(0,0,0,.85));
+}
+
+/* contact info side-by-side */
+.contact-info-flex{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:2rem;
+  flex-wrap:wrap;
+}
+.contact-info-flex p{
+  margin:0;
+  font-size:0.95rem;
+  display:flex;
+  align-items:center;
+  gap:0.45rem;
+  white-space:nowrap;
+}
+.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.rating{font-weight:bold;}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  height:90vh;
+  overflow:hidden;
+
+  /* HERO IMAGE (replace this file) */
+  background:url("villa-hero.jpg") center/cover no-repeat;
+}
+
+/* HERO OVERLAY */
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:2rem;
+  background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.92));
+}
+
+.hero-overlay h1{
+  font-size:3rem;
+  margin-bottom:1rem;
+}
+.hero-overlay p{
+  max-width:860px;
+  font-size:1.2rem;
+  opacity:0.92;
+  margin-bottom:2rem;
+}
+
+/* HERO BUTTONS */
+.hero-actions{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.hero-actions a{
+  display:inline-block;
+  padding:1rem 2.2rem;
+  border-radius:40px;
+  font-weight:bold;
+  text-decoration:none;
+  min-height:44px;
+}
+.hero-actions .primary{
+  background:#f7c948;
+  color:#000;
+}
+.hero-actions .secondary{
+  border:2px solid #f7c948;
+  color:#f7c948;
+  background:transparent;
+}
+
+/* ---------- FEATURED ---------- */
+.featured{
+  padding:6rem 2rem;
+  text-align:center;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+.featured h2{font-size:2.8rem;margin-bottom:1rem;}
+.featured .sub{
+  max-width:900px;
+  margin:0 auto 2.25rem;
+  opacity:.92;
+  line-height:1.6;
+}
+
+.featured-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2rem;
+}
+
+.featured-item{
+  background:#1c1c1c;
+  border-radius:16px;
+  overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease;
+  position:relative;
+  padding-top:140px;
+  text-align:center;
+}
+.featured-item:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+.featured-item-img{
+  width:140px;height:140px;border-radius:50%;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  border:4px solid #222;
+  position:absolute;top:0;left:50%;
+  transform:translateX(-50%);
+}
+.featured-item h4{margin:1rem 0 .5rem;font-size:1.2rem;}
+.featured-item p{
+  opacity:.9;
+  font-size:.98rem;
+  padding:0 1.1rem;
+  margin:0 0 1.1rem;
+  line-height:1.45;
+}
+.featured-item a{
+  display:inline-block;
+  margin-bottom:1.5rem;
+  padding:.55rem 1.2rem;
+  border-radius:25px;
+  background:#f7c948;
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.featured-links{
+  margin-top:2rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.9rem;
+  justify-content:center;
+}
+.featured-links a{
+  display:inline-block;
+  padding:0.9rem 1.35rem;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+}
+.featured-links a:hover{
+  background:rgba(255,255,255,.12);
+}
+
+/* ---------- OUR STORY ---------- */
+.story{
+  padding:6rem 2rem;
+  background:#111;
+  max-width:1000px;
+  margin:0 auto 4rem;
+  text-align:center;
+  border-radius:16px;
+}
+.story h2{font-size:2.6rem;margin-bottom:1rem;}
+.story .tagline{opacity:.95;margin-bottom:1.75rem;}
+.story p{font-size:1.05rem;line-height:1.75;opacity:.92;margin-bottom:1.25rem;}
+.story .highlight{
+  display:inline-block;
+  margin-top:1rem;
+  padding:0.85rem 1.1rem;
+  border-radius:12px;
+  background:rgba(247,201,72,.12);
+  border:1px solid rgba(247,201,72,.25);
+  max-width:900px;
+}
+
+/* ---------- EMAIL SIGNUP ---------- */
+.signup{
+  padding:5rem 2rem 6rem;
+  text-align:center;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+}
+.signup h2{font-size:2.3rem;margin-bottom:0.6rem;}
+.signup p{max-width:720px;margin:0 auto 1.75rem;opacity:.92;line-height:1.6;}
+.signup form{
+  display:flex;
+  justify-content:center;
+  gap:0.75rem;
+  flex-wrap:wrap;
+}
+.signup input[type="email"]{
+  padding:.9rem 1rem;
+  border-radius:25px;
+  border:none;
+  width:min(520px, 92vw);
+}
+.signup button{
+  padding:.9rem 1.4rem;
+  border-radius:25px;
+  border:none;
+  background:#f7c948;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  min-height:44px;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding:2rem;
+  text-align:center;
+  background:#0d0d0d;
+  opacity:.9;
+}
+
+/* ---------- MOBILE OPTIMIZATION ---------- */
+a, button{ -webkit-tap-highlight-color: transparent; }
+
+@media (max-width: 900px){
+  header{padding:0.7rem 1rem; gap:1rem; flex-direction:column; align-items:flex-start;}
+  header h1{width:100%; justify-content:flex-start;}
+  .contact-info-flex{width:100%; justify-content:flex-start; gap:0.75rem 1.25rem;}
+  .featured{padding:4rem 1.25rem;}
+  .featured h2{font-size:2.2rem;}
+}
+
+@media (max-width: 600px){
+  header h1 img{height:44px; max-width:80vw;}
+  .hero{height:82vh;}
+  .hero-overlay{padding:1.5rem 1.1rem;}
+  .hero-overlay h1{font-size:2.05rem; line-height:1.1; margin-bottom:0.75rem;}
+  .hero-overlay p{font-size:1.02rem; line-height:1.45; margin-bottom:1.25rem;}
+
+  .hero-actions{width:100%; gap:0.75rem;}
+  .hero-actions a{width:100%; text-align:center; padding:0.95rem 1.2rem;}
+
+  .featured-item{padding-top:120px;}
+  .featured-item-img{width:120px;height:120px;}
+
+  .story{padding:3.25rem 1.25rem; margin:0 auto 3rem;}
+  .story h2{font-size:2.05rem;}
+
+  .signup{padding:3.5rem 1.25rem 4.25rem;}
+  .signup form{flex-direction:column; align-items:center;}
+  .signup input[type="email"], .signup button{width:min(520px, 100%);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>
+    <!-- Replace with your client logo file -->
+    <img src="villa-logo.png" alt="Ambridge Italian Villa">
+  </h1>
+
+  <div class="contact-info-flex">
+    <p><span class="status-dot" style="background:green;"></span> (724) 266-1919</p>
+    <p>1710 Duss Ave, Ambridge, PA 15003</p>
+    <p class="rating">Italian • Greek • American</p>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-overlay">
+    <h1>Welcome to Ambridge Italian Villa</h1>
+    <p>
+      Your best choice for Italian, Greek, and American favorites — pizza, gyros, calzones, strombolis,
+      pasta, wings, salads, and more. Breakfast, lunch, dinner, and everything in between.
+    </p>
+
+    <div class="hero-actions">
+      <a class="primary" target="_blank" rel="noopener"
+         href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">
+        Order Online
+      </a>
+      <a class="secondary" href="#featured">Explore Favorites</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED ITEMS -->
+<section class="featured" id="featured">
+  <h2>Villa Favorites</h2>
+  <p class="sub">
+    From our famous gyro to pizza night classics — here are a few crowd-pleasers. Order online or browse the full menu.
+  </p>
+
+  <div class="featured-grid">
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('gyro.jpg');"></div>
+      <h4>Legendary Gyro</h4>
+      <p>Known for size, quality, and taste.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('pizza.jpg');"></div>
+      <h4>Pizza & Specialty Pies</h4>
+      <p>Classic favorites and specialty options.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('calzone.jpg');"></div>
+      <h4>Custom Calzones</h4>
+      <p>Build it your way — baked, melty, and loaded.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('stromboli.jpg');"></div>
+      <h4>Custom Strombolis</h4>
+      <p>Big flavor, perfect for sharing.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('wings.jpg');"></div>
+      <h4>Wings</h4>
+      <p>Multiple flavors, made to crave.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+
+    <div class="featured-item">
+      <div class="featured-item-img" style="background-image:url('breakfast.jpg');"></div>
+      <h4>Breakfast Specials</h4>
+      <p>Start the day the Villa way.</p>
+      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    </div>
+  </div>
+
+  <div class="featured-links">
+    <a href="https://www.ambridgeitalianvilla.com/our-menu/" target="_blank" rel="noopener">Menu</a>
+    <a href="https://www.ambridgeitalianvilla.com/bakery/" target="_blank" rel="noopener">Bakery</a>
+    <a href="https://www.ambridgeitalianvilla.com/catering/" target="_blank" rel="noopener">Catering</a>
+    <a href="https://www.ambridgeitalianvilla.com/food-truck/" target="_blank" rel="noopener">Food Truck</a>
+    <a href="https://www.ambridgeitalianvilla.com/taste-of-the-mediterranean/" target="_blank" rel="noopener">Taste of the Mediterranean</a>
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="story" id="story">
+  <h2>Our Story</h2>
+  <p class="tagline"><strong>More than 40 years of food, family, and tradition in Beaver County.</strong></p>
+
+  <p>
+    Ambridge Italian Villa has been serving the community for decades — and we’re known far and wide for our
+    gyro sandwich that’s hard to beat in size, quality, or taste.
+  </p>
+
+  <p>
+    An immigrant Greek family purchased the business in 1978 and transformed a pizza parlor into a place for
+    sit-down service, carryout, and the kind of comfort food that keeps people coming back.
+  </p>
+
+  <p>
+    In 2000, the Villa was passed to the next generation — <strong>John Palavros</strong> (chef) and
+    <strong>Amy Palavros</strong> (pastry chef) — who expanded the menu with fresh, homemade food and added
+    delivery, catering, and more ways to serve the community.
+  </p>
+
+  <div class="highlight">
+    Come join us for breakfast, lunch, dinner, or a late-night bite — where food, quality, price, and service come first.
+  </div>
+</section>
+
+<!-- EMAIL SIGNUP -->
+<section class="signup" id="signup">
+  <h2>Join the Villa Family</h2>
+  <p>
+    Get special offers, weekly features, and catering updates — delivered straight to your inbox.
+  </p>
+
+  <!-- Replace action="" later when you connect your email collection -->
+  <form action="" method="post">
+    <input type="email" name="email" placeholder="Your Email" required>
+    <button type="submit">Sign Up</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Ambridge Italian Villa — Ambridge, PA
+</footer>
+
+</body>
+</html>
