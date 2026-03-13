@@ -8,14 +8,25 @@
 <style>
 /* ---------- GLOBAL ---------- */
 *{margin:0;padding:0;box-sizing:border-box;}
-html, body{overflow-x:hidden;}
+html, body{overflow-x:hidden;scroll-behavior:smooth;}
+
+:root{
+  --gold:#f7c948;
+  --gold-dark:#ddb22f;
+  --bg:#0d0d0d;
+  --panel:#171717;
+  --panel-2:#111;
+  --line:rgba(255,255,255,.1);
+  --text:#fff;
+  --muted:rgba(255,255,255,.82);
+  --muted-2:rgba(255,255,255,.68);
+  --shadow:0 18px 40px rgba(0,0,0,.35);
+  --radius:18px;
+}
 
 body{
   font-family:"Helvetica Neue", Arial, sans-serif;
-  color:#fff;
-  scroll-behavior:smooth;
-
-  /* PAGE BACKGROUND IMAGE (replace this file) */
+  color:var(--text);
   background:url("villa-bg.jpg") center/cover no-repeat fixed;
   position:relative;
 }
@@ -25,141 +36,249 @@ body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.88));
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.90)),
+    radial-gradient(circle at top center, rgba(247,201,72,.08), transparent 35%);
   z-index:-1;
+}
+
+/* ---------- UTILITIES ---------- */
+.section-shell{
+  width:min(1180px, calc(100% - 2rem));
+  margin:0 auto;
+}
+.section-title{
+  font-size:2.7rem;
+  margin-bottom:.8rem;
+  text-align:center;
+}
+.section-sub{
+  max-width:840px;
+  margin:0 auto 2.2rem;
+  text-align:center;
+  line-height:1.65;
+  color:var(--muted);
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border-radius:999px;
+  padding:1rem 1.5rem;
+  min-height:44px;
+  font-weight:700;
+  transition:transform .18s ease, opacity .18s ease, background .18s ease, border-color .18s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn.primary{
+  background:var(--gold);
+  color:#000;
+}
+.btn.primary:hover{background:var(--gold-dark);}
+.btn.secondary{
+  border:2px solid var(--gold);
+  color:var(--gold);
+  background:transparent;
+}
+.btn.ghost{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.55rem .95rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+  font-size:.95rem;
+  color:#fff;
 }
 
 /* ---------- HEADER ---------- */
 header{
   background:rgba(17,17,17,0.92);
-  backdrop-filter: blur(8px);
-  padding:0.4rem 1.25rem;
+  backdrop-filter: blur(10px);
+  padding:.7rem 1.25rem;
   display:flex;
   justify-content:space-between;
   align-items:center;
   position:sticky;
   top:0;
   z-index:100;
-  border-bottom:2px solid #222;
-  gap:1.5rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  gap:1.25rem;
 }
 
-header h1{display:flex;align-items:center;line-height:0;}
+header h1{
+  display:flex;
+  align-items:center;
+  line-height:0;
+}
+
 header h1 img{
-  height:40px;                 /* keep header size the same */
+  height:44px;
   width:auto;
   object-fit:contain;
-
-  /* make logo “pop” without making header taller */
   filter: drop-shadow(0 2px 10px rgba(0,0,0,.75));
   transform: translateZ(0);
 }
+
 header h1 img:hover{
   filter: drop-shadow(0 2px 14px rgba(0,0,0,.85));
 }
 
-/* contact info side-by-side */
 .contact-info-flex{
   display:flex;
   align-items:center;
   justify-content:flex-end;
-  gap:2rem;
+  gap:1.4rem;
   flex-wrap:wrap;
 }
 .contact-info-flex p{
   margin:0;
-  font-size:0.95rem;
+  font-size:.95rem;
   display:flex;
   align-items:center;
-  gap:0.45rem;
+  gap:.45rem;
   white-space:nowrap;
+  color:var(--muted);
 }
-.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
-.rating{font-weight:bold;}
+.status-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+.rating{font-weight:700;color:#fff;}
 
 /* ---------- HERO ---------- */
 .hero{
   position:relative;
-  height:90vh;
+  min-height:92vh;
   overflow:hidden;
-
-  /* HERO IMAGE (replace this file) */
   background:url("villa-hero.jpg") center/cover no-repeat;
 }
 
-/* HERO OVERLAY */
 .hero-overlay{
   position:absolute;
   inset:0;
   z-index:2;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
   padding:2rem;
-  background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.92));
+  background:linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,.90));
+}
+
+.hero-inner{
+  width:min(980px, 100%);
+}
+
+.hero-kicker{
+  display:inline-block;
+  margin-bottom:1rem;
+  padding:.55rem 1rem;
+  border-radius:999px;
+  background:rgba(247,201,72,.14);
+  border:1px solid rgba(247,201,72,.28);
+  color:#ffe59a;
+  font-weight:700;
+  letter-spacing:.02em;
 }
 
 .hero-overlay h1{
-  font-size:3rem;
+  font-size:3.35rem;
+  line-height:1.05;
   margin-bottom:1rem;
 }
+
 .hero-overlay p{
   max-width:860px;
-  font-size:1.2rem;
-  opacity:0.92;
-  margin-bottom:2rem;
+  font-size:1.15rem;
+  opacity:.94;
+  margin:0 auto 1.7rem;
+  line-height:1.7;
+  color:var(--muted);
 }
 
-/* HERO BUTTONS */
+.hero-points{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem;
+  justify-content:center;
+  margin-bottom:1.8rem;
+}
+
 .hero-actions{
   display:flex;
   gap:1rem;
   flex-wrap:wrap;
   justify-content:center;
+  margin-bottom:1.4rem;
 }
-.hero-actions a{
-  display:inline-block;
-  padding:1rem 2.2rem;
-  border-radius:40px;
-  font-weight:bold;
-  text-decoration:none;
-  min-height:44px;
+
+.hero-meta{
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  color:var(--muted);
+  font-size:.98rem;
 }
-.hero-actions .primary{
-  background:#f7c948;
-  color:#000;
+
+/* ---------- QUICK ACTIONS ---------- */
+.quick-actions{
+  margin-top:-42px;
+  position:relative;
+  z-index:5;
 }
-.hero-actions .secondary{
-  border:2px solid #f7c948;
-  color:#f7c948;
-  background:transparent;
+.quick-actions-grid{
+  width:min(1180px, calc(100% - 2rem));
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:1rem;
+}
+.quick-card{
+  background:rgba(20,20,20,.94);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.25rem;
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.quick-card h3{
+  font-size:1.05rem;
+  margin-bottom:.4rem;
+}
+.quick-card p{
+  color:var(--muted-2);
+  line-height:1.55;
+  font-size:.96rem;
+}
+.quick-card a{
+  margin-top:.9rem;
 }
 
 /* ---------- FEATURED ---------- */
 .featured{
-  padding:6rem 2rem;
-  text-align:center;
-  background:rgba(0,0,0,0.55);
+  padding:6rem 0 5rem;
+  background:rgba(0,0,0,0.48);
   backdrop-filter: blur(4px);
 }
-.featured h2{font-size:2.8rem;margin-bottom:1rem;}
-.featured .sub{
-  max-width:900px;
-  margin:0 auto 2.25rem;
-  opacity:.92;
-  line-height:1.6;
-}
-
 .featured-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:2rem;
+  gap:1.5rem;
 }
-
 .featured-item{
-  background:#1c1c1c;
+  background:rgba(23,23,23,.96);
+  border:1px solid var(--line);
   border-radius:16px;
   overflow:hidden;
   transition:transform .2s ease, box-shadow .2s ease;
@@ -169,31 +288,41 @@ header h1 img:hover{
 }
 .featured-item:hover{
   transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(0,0,0,.4);
+  box-shadow:0 15px 35px rgba(0,0,0,.35);
 }
 .featured-item-img{
-  width:140px;height:140px;border-radius:50%;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
   border:4px solid #222;
-  position:absolute;top:0;left:50%;
+  position:absolute;
+  top:0;
+  left:50%;
   transform:translateX(-50%);
 }
-.featured-item h4{margin:1rem 0 .5rem;font-size:1.2rem;}
+.featured-item h4{
+  margin:1rem 0 .5rem;
+  font-size:1.18rem;
+}
 .featured-item p{
-  opacity:.9;
+  opacity:.92;
   font-size:.98rem;
-  padding:0 1.1rem;
+  padding:0 1rem;
   margin:0 0 1.1rem;
-  line-height:1.45;
+  line-height:1.52;
+  color:var(--muted);
 }
 .featured-item a{
   display:inline-block;
-  margin-bottom:1.5rem;
-  padding:.55rem 1.2rem;
-  border-radius:25px;
-  background:#f7c948;
+  margin-bottom:1.35rem;
+  padding:.58rem 1.15rem;
+  border-radius:999px;
+  background:var(--gold);
   color:#000;
-  font-weight:bold;
+  font-weight:700;
   text-decoration:none;
 }
 
@@ -201,15 +330,15 @@ header h1 img:hover{
   margin-top:2rem;
   display:flex;
   flex-wrap:wrap;
-  gap:0.9rem;
+  gap:.9rem;
   justify-content:center;
 }
 .featured-links a{
   display:inline-block;
-  padding:0.9rem 1.35rem;
-  border-radius:30px;
+  padding:.9rem 1.25rem;
+  border-radius:999px;
   text-decoration:none;
-  font-weight:bold;
+  font-weight:700;
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.14);
   color:#fff;
@@ -218,58 +347,186 @@ header h1 img:hover{
   background:rgba(255,255,255,.12);
 }
 
-/* ---------- OUR STORY ---------- */
+/* ---------- MENU PREVIEW ---------- */
+.menu-preview{
+  padding:5.5rem 0;
+}
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:1rem;
+}
+.menu-card{
+  background:rgba(17,17,17,.95);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.35rem;
+}
+.menu-card h3{
+  margin-bottom:.8rem;
+  font-size:1.18rem;
+}
+.menu-card ul{
+  list-style:none;
+}
+.menu-card li{
+  padding:.45rem 0;
+  color:var(--muted);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.menu-card li:last-child{border-bottom:none;}
+.menu-bottom{
+  margin-top:1.7rem;
+  text-align:center;
+}
+
+/* ---------- FOOD TRUCK ---------- */
+.food-truck{
+  padding:5.5rem 0;
+  background:rgba(0,0,0,.52);
+  backdrop-filter: blur(4px);
+}
+.truck-wrap{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:1.25rem;
+  align-items:stretch;
+}
+.truck-panel{
+  background:rgba(20,20,20,.96);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.5rem;
+  box-shadow:var(--shadow);
+}
+.truck-panel h3{
+  font-size:1.35rem;
+  margin-bottom:.75rem;
+}
+.truck-panel p{
+  color:var(--muted);
+  line-height:1.65;
+}
+.schedule-list{
+  display:grid;
+  gap:.8rem;
+  margin-top:1rem;
+}
+.schedule-item{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding:1rem 1rem;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+}
+.schedule-item strong{
+  display:block;
+  margin-bottom:.2rem;
+}
+.schedule-item span{
+  color:var(--muted-2);
+  font-size:.95rem;
+}
+.truck-cta{
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  margin-top:1.15rem;
+}
+
+/* ---------- STORY ---------- */
+.story-wrap{
+  padding:5.5rem 0;
+}
 .story{
-  padding:6rem 2rem;
   background:#111;
   max-width:1000px;
-  margin:0 auto 4rem;
+  margin:0 auto;
   text-align:center;
   border-radius:16px;
+  padding:4rem 2rem;
+  border:1px solid var(--line);
 }
-.story h2{font-size:2.6rem;margin-bottom:1rem;}
-.story .tagline{opacity:.95;margin-bottom:1.75rem;}
-.story p{font-size:1.05rem;line-height:1.75;opacity:.92;margin-bottom:1.25rem;}
+.story h2{
+  font-size:2.6rem;
+  margin-bottom:1rem;
+}
+.story .tagline{
+  opacity:.95;
+  margin-bottom:1.75rem;
+}
+.story p{
+  font-size:1.05rem;
+  line-height:1.75;
+  opacity:.92;
+  margin-bottom:1.25rem;
+  color:var(--muted);
+}
 .story .highlight{
   display:inline-block;
   margin-top:1rem;
-  padding:0.85rem 1.1rem;
+  padding:.9rem 1.1rem;
   border-radius:12px;
   background:rgba(247,201,72,.12);
   border:1px solid rgba(247,201,72,.25);
   max-width:900px;
 }
 
-/* ---------- EMAIL SIGNUP ---------- */
-.signup{
-  padding:5rem 2rem 6rem;
-  text-align:center;
-  background:rgba(0,0,0,0.55);
-  backdrop-filter: blur(4px);
+/* ---------- HOURS / CONTACT ---------- */
+.info-section{
+  padding:5.5rem 0 6rem;
+  background:rgba(0,0,0,.48);
 }
-.signup h2{font-size:2.3rem;margin-bottom:0.6rem;}
-.signup p{max-width:720px;margin:0 auto 1.75rem;opacity:.92;line-height:1.6;}
-.signup form{
+.info-grid{
+  display:grid;
+  grid-template-columns:.95fr 1.05fr;
+  gap:1rem;
+}
+.info-card{
+  background:rgba(17,17,17,.95);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:1.5rem;
+}
+.info-card h3{
+  font-size:1.35rem;
+  margin-bottom:1rem;
+}
+.hours-list{
+  display:grid;
+  gap:.7rem;
+}
+.hours-row{
   display:flex;
-  justify-content:center;
-  gap:0.75rem;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.85rem 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.hours-row:last-child{border-bottom:none;}
+.hours-row span{color:var(--muted);}
+.contact-stack{
+  display:grid;
+  gap:.85rem;
+}
+.contact-stack p{
+  color:var(--muted);
+  line-height:1.6;
+}
+.contact-actions{
+  display:flex;
   flex-wrap:wrap;
+  gap:.8rem;
+  margin-top:1rem;
 }
-.signup input[type="email"]{
-  padding:.9rem 1rem;
-  border-radius:25px;
-  border:none;
-  width:min(520px, 92vw);
-}
-.signup button{
-  padding:.9rem 1.4rem;
-  border-radius:25px;
-  border:none;
-  background:#f7c948;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-  min-height:44px;
+.map-frame{
+  width:100%;
+  height:100%;
+  min-height:320px;
+  border:0;
+  border-radius:14px;
 }
 
 /* ---------- FOOTER ---------- */
@@ -277,39 +534,69 @@ footer{
   padding:2rem;
   text-align:center;
   background:#0d0d0d;
-  opacity:.9;
+  opacity:.96;
+  color:var(--muted);
+  border-top:1px solid rgba(255,255,255,.06);
 }
+footer strong{color:#fff;}
 
-/* ---------- MOBILE OPTIMIZATION ---------- */
+/* ---------- MOBILE ---------- */
 a, button{ -webkit-tap-highlight-color: transparent; }
 
+@media (max-width: 1080px){
+  .quick-actions-grid{grid-template-columns:repeat(2,1fr);}
+  .menu-grid{grid-template-columns:repeat(2,1fr);}
+  .truck-wrap,
+  .info-grid{grid-template-columns:1fr;}
+}
+
 @media (max-width: 900px){
-  header{padding:0.7rem 1rem; gap:1rem; flex-direction:column; align-items:flex-start;}
-  header h1{width:100%; justify-content:flex-start;}
-  .contact-info-flex{width:100%; justify-content:flex-start; gap:0.75rem 1.25rem;}
-  .featured{padding:4rem 1.25rem;}
-  .featured h2{font-size:2.2rem;}
+  header{
+    padding:.75rem 1rem;
+    gap:1rem;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  header h1{width:100%;justify-content:flex-start;}
+  .contact-info-flex{
+    width:100%;
+    justify-content:flex-start;
+    gap:.7rem 1.15rem;
+  }
+  .section-title{font-size:2.2rem;}
+  .hero-overlay h1{font-size:2.7rem;}
 }
 
 @media (max-width: 600px){
-  header h1 img{height:44px; max-width:80vw;}
-  .hero{height:82vh;}
-  .hero-overlay{padding:1.5rem 1.1rem;}
-  .hero-overlay h1{font-size:2.05rem; line-height:1.1; margin-bottom:0.75rem;}
-  .hero-overlay p{font-size:1.02rem; line-height:1.45; margin-bottom:1.25rem;}
+  header h1 img{height:44px;max-width:80vw;}
+  .hero{min-height:84vh;}
+  .hero-overlay{padding:1.4rem 1rem;}
+  .hero-overlay h1{
+    font-size:2.05rem;
+    line-height:1.1;
+    margin-bottom:.75rem;
+  }
+  .hero-overlay p{
+    font-size:1rem;
+    line-height:1.5;
+    margin-bottom:1.2rem;
+  }
+  .hero-actions{width:100%;gap:.75rem;}
+  .hero-actions a{width:100%;}
+  .hero-meta{font-size:.92rem;}
 
-  .hero-actions{width:100%; gap:0.75rem;}
-  .hero-actions a{width:100%; text-align:center; padding:0.95rem 1.2rem;}
+  .quick-actions{margin-top:-24px;}
+  .quick-actions-grid{grid-template-columns:1fr;}
 
+  .featured{padding:4rem 0;}
   .featured-item{padding-top:120px;}
   .featured-item-img{width:120px;height:120px;}
 
-  .story{padding:3.25rem 1.25rem; margin:0 auto 3rem;}
-  .story h2{font-size:2.05rem;}
-
-  .signup{padding:3.5rem 1.25rem 4.25rem;}
-  .signup form{flex-direction:column; align-items:center;}
-  .signup input[type="email"], .signup button{width:min(520px, 100%);}
+  .menu-grid{grid-template-columns:1fr;}
+  .story{
+    padding:3.2rem 1.2rem;
+  }
+  .story h2{font-size:2rem;}
 }
 </style>
 </head>
@@ -319,12 +606,11 @@ a, button{ -webkit-tap-highlight-color: transparent; }
 <!-- HEADER -->
 <header>
   <h1>
-    <!-- Replace with your client logo file -->
     <img src="villa-logo.png" alt="Ambridge Italian Villa">
   </h1>
 
   <div class="contact-info-flex">
-    <p><span class="status-dot" style="background:green;"></span> (724) 266-1919</p>
+    <p><span class="status-dot" style="background:green;"></span> Call Now: (724) 266-1919</p>
     <p>1710 Duss Ave, Ambridge, PA 15003</p>
     <p class="rating">Italian • Greek • American</p>
   </div>
@@ -333,125 +619,390 @@ a, button{ -webkit-tap-highlight-color: transparent; }
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-overlay">
-    <h1>Welcome to Ambridge Italian Villa</h1>
-    <p>
-      Your best choice for Italian, Greek, and American favorites — pizza, gyros, calzones, strombolis,
-      pasta, wings, salads, and more. Breakfast, lunch, dinner, and everything in between.
-    </p>
+    <div class="hero-inner">
+      <div class="hero-kicker">Italian & Greek Favorites • Dine In • Takeout • Food Truck</div>
 
-    <div class="hero-actions">
-      <a class="primary" target="_blank" rel="noopener"
+      <h1>Ambridge’s Go-To Spot for Pizza, Gyros, Pasta & More</h1>
+
+      <p>
+        Fresh Italian, Greek, and American favorites made for breakfast, lunch, dinner, and late-night cravings.
+        From legendary gyros and specialty pizzas to homemade classics and food truck specials, Ambridge Italian Villa
+        brings big flavor to every order.
+      </p>
+
+      <div class="hero-points">
+        <span class="chip">Order Online Fast</span>
+        <span class="chip">Follow the Food Truck</span>
+        <span class="chip">Breakfast • Lunch • Dinner</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn primary" target="_blank" rel="noopener"
+           href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">
+          Order Online
+        </a>
+        <a class="btn secondary" href="#featured">See Best Sellers</a>
+        <a class="btn ghost" href="#food-truck">Find the Food Truck</a>
+      </div>
+
+      <div class="hero-meta">
+        <span>Family-owned tradition since 1978</span>
+        <span>•</span>
+        <span>Known for the gyro locals swear by</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK ACTIONS -->
+<section class="quick-actions">
+  <div class="quick-actions-grid">
+    <div class="quick-card">
+      <h3>Order in Seconds</h3>
+      <p>Skip the friction. Let customers go straight from homepage to order.</p>
+      <a class="btn primary" target="_blank" rel="noopener"
          href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">
-        Order Online
+        Start Order
       </a>
-      <a class="secondary" href="#featured">Explore Favorites</a>
+    </div>
+
+    <div class="quick-card">
+      <h3>View Full Menu</h3>
+      <p>Pizza, gyros, pasta, wings, sandwiches, bakery, catering, and more.</p>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.ambridgeitalianvilla.com/our-menu/">
+        Browse Menu
+      </a>
+    </div>
+
+    <div class="quick-card">
+      <h3>Book Catering</h3>
+      <p>Perfect for parties, office lunches, family gatherings, and events.</p>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.ambridgeitalianvilla.com/catering/">
+        Catering Info
+      </a>
+    </div>
+
+    <div class="quick-card">
+      <h3>Track the Truck</h3>
+      <p>Give the food truck its own spotlight so customers know where to find it.</p>
+      <a class="btn ghost" href="#food-truck">Truck Schedule</a>
     </div>
   </div>
 </section>
 
 <!-- FEATURED ITEMS -->
 <section class="featured" id="featured">
-  <h2>Villa Favorites</h2>
-  <p class="sub">
-    From our famous gyro to pizza night classics — here are a few crowd-pleasers. Order online or browse the full menu.
-  </p>
+  <div class="section-shell">
+    <h2 class="section-title">Best Sellers & Villa Favorites</h2>
+    <p class="section-sub">
+      The current site has a huge menu, so this section makes ordering easier by putting the biggest crowd-pleasers first.
+      Show people what they should try before they have to dig through everything else.
+    </p>
 
-  <div class="featured-grid">
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('gyro.jpg');"></div>
-      <h4>Legendary Gyro</h4>
-      <p>Known for size, quality, and taste.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    <div class="featured-grid">
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('gyro.jpg');"></div>
+        <h4>Legendary Gyro</h4>
+        <p>The dish the Villa is known for — big, flavorful, and hard to beat in size or taste.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
+
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('pizza.jpg');"></div>
+        <h4>Pizza & Specialty Pies</h4>
+        <p>Classic slices, loaded pies, and family favorites that keep people coming back.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
+
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('calzone.jpg');"></div>
+        <h4>Custom Calzones</h4>
+        <p>Golden baked, melty inside, and easy to customize with your favorite fillings.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
+
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('stromboli.jpg');"></div>
+        <h4>Custom Strombolis</h4>
+        <p>Big flavor, loaded portions, and perfect for sharing with the table.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
+
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('wings.jpg');"></div>
+        <h4>Wings</h4>
+        <p>Bold flavor, craveable sauces, and a strong add-on for game day or takeout night.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
+
+      <div class="featured-item">
+        <div class="featured-item-img" style="background-image:url('breakfast.jpg');"></div>
+        <h4>Breakfast Specials</h4>
+        <p>Start the morning strong with hearty plates and comfort food done right.</p>
+        <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+      </div>
     </div>
 
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('pizza.jpg');"></div>
-      <h4>Pizza & Specialty Pies</h4>
-      <p>Classic favorites and specialty options.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
-    </div>
-
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('calzone.jpg');"></div>
-      <h4>Custom Calzones</h4>
-      <p>Build it your way — baked, melty, and loaded.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
-    </div>
-
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('stromboli.jpg');"></div>
-      <h4>Custom Strombolis</h4>
-      <p>Big flavor, perfect for sharing.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
-    </div>
-
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('wings.jpg');"></div>
-      <h4>Wings</h4>
-      <p>Multiple flavors, made to crave.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
-    </div>
-
-    <div class="featured-item">
-      <div class="featured-item-img" style="background-image:url('breakfast.jpg');"></div>
-      <h4>Breakfast Specials</h4>
-      <p>Start the day the Villa way.</p>
-      <a target="_blank" rel="noopener" href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">Order Online</a>
+    <div class="featured-links">
+      <a href="https://www.ambridgeitalianvilla.com/our-menu/" target="_blank" rel="noopener">Full Menu</a>
+      <a href="https://www.ambridgeitalianvilla.com/bakery/" target="_blank" rel="noopener">Bakery</a>
+      <a href="https://www.ambridgeitalianvilla.com/catering/" target="_blank" rel="noopener">Catering</a>
+      <a href="https://www.ambridgeitalianvilla.com/food-truck/" target="_blank" rel="noopener">Food Truck</a>
+      <a href="https://www.ambridgeitalianvilla.com/taste-of-the-mediterranean/" target="_blank" rel="noopener">Taste of the Mediterranean</a>
     </div>
   </div>
+</section>
 
-  <div class="featured-links">
-    <a href="https://www.ambridgeitalianvilla.com/our-menu/" target="_blank" rel="noopener">Menu</a>
-    <a href="https://www.ambridgeitalianvilla.com/bakery/" target="_blank" rel="noopener">Bakery</a>
-    <a href="https://www.ambridgeitalianvilla.com/catering/" target="_blank" rel="noopener">Catering</a>
-    <a href="https://www.ambridgeitalianvilla.com/food-truck/" target="_blank" rel="noopener">Food Truck</a>
-    <a href="https://www.ambridgeitalianvilla.com/taste-of-the-mediterranean/" target="_blank" rel="noopener">Taste of the Mediterranean</a>
+<!-- MENU PREVIEW -->
+<section class="menu-preview" id="menu-preview">
+  <div class="section-shell">
+    <h2 class="section-title">A Cleaner Way to Preview the Menu</h2>
+    <p class="section-sub">
+      Instead of overwhelming visitors with everything at once, give them a quick snapshot of the main categories.
+      Then let them jump to the full menu when they’re ready.
+    </p>
+
+    <div class="menu-grid">
+      <div class="menu-card">
+        <h3>Greek Favorites</h3>
+        <ul>
+          <li>Gyros</li>
+          <li>Greek Salads</li>
+          <li>Souvlaki</li>
+          <li>Mediterranean Plates</li>
+          <li>Taste of the Mediterranean</li>
+        </ul>
+      </div>
+
+      <div class="menu-card">
+        <h3>Italian Classics</h3>
+        <ul>
+          <li>Pasta Dinners</li>
+          <li>Chicken Parmesan</li>
+          <li>Baked Dishes</li>
+          <li>Calzones</li>
+          <li>Strombolis</li>
+        </ul>
+      </div>
+
+      <div class="menu-card">
+        <h3>Pizza & More</h3>
+        <ul>
+          <li>Cheese Pizza</li>
+          <li>Specialty Pies</li>
+          <li>Wings</li>
+          <li>Fries & Sides</li>
+          <li>Late-Night Favorites</li>
+        </ul>
+      </div>
+
+      <div class="menu-card">
+        <h3>Everyday Extras</h3>
+        <ul>
+          <li>Breakfast Specials</li>
+          <li>Sandwiches & Wraps</li>
+          <li>Bakery Items</li>
+          <li>Catering Options</li>
+          <li>Food Truck Specials</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="menu-bottom">
+      <a class="btn primary" target="_blank" rel="noopener" href="https://www.ambridgeitalianvilla.com/our-menu/">
+        View Full Menu
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOD TRUCK -->
+<section class="food-truck" id="food-truck">
+  <div class="section-shell">
+    <h2 class="section-title">Put the Food Truck Front and Center</h2>
+    <p class="section-sub">
+      This is one of the biggest opportunities on the site. Make it easy for people to find the truck,
+      follow the schedule, and check upcoming events.
+    </p>
+
+    <div class="truck-wrap">
+      <div class="truck-panel">
+        <h3>Where’s the Villa Food Truck?</h3>
+        <p>
+          Give the truck its own featured section so customers can quickly see where it is today, this weekend,
+          or for the next big event. This creates repeat traffic because people will actually come back to the site to check.
+        </p>
+
+        <div class="schedule-list">
+          <div class="schedule-item">
+            <div>
+              <strong>Friday</strong>
+              <span>Downtown lunch stop</span>
+            </div>
+            <div>
+              <strong>11:00 AM – 2:00 PM</strong>
+              <span>Update with live location</span>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div>
+              <strong>Saturday</strong>
+              <span>Community event / festival</span>
+            </div>
+            <div>
+              <strong>12:00 PM – 7:00 PM</strong>
+              <span>Update event details here</span>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div>
+              <strong>Sunday</strong>
+              <span>Private event / catering</span>
+            </div>
+            <div>
+              <strong>Custom schedule</strong>
+              <span>Great place for announcements</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="truck-cta">
+          <a class="btn primary" target="_blank" rel="noopener" href="https://www.ambridgeitalianvilla.com/food-truck/">
+            Food Truck Details
+          </a>
+          <a class="btn secondary" target="_blank" rel="noopener" href="https://www.ambridgeitalianvilla.com/catering/">
+            Book for an Event
+          </a>
+        </div>
+      </div>
+
+      <div class="truck-panel">
+        <h3>Why This Matters</h3>
+        <p>
+          The truck is not just another page — it’s a built-in marketing advantage. A strong truck section helps with:
+        </p>
+
+        <div class="schedule-list">
+          <div class="schedule-item">
+            <div>
+              <strong>More Repeat Visits</strong>
+              <span>People return to check the next stop.</span>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div>
+              <strong>Better Event Bookings</strong>
+              <span>Make private events and catering easier to book.</span>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div>
+              <strong>Stronger Brand Identity</strong>
+              <span>Restaurant + food truck feels bigger and more active.</span>
+            </div>
+          </div>
+
+          <div class="schedule-item">
+            <div>
+              <strong>Clearer Customer Journey</strong>
+              <span>Visitors know exactly what to do next.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- OUR STORY -->
-<section class="story" id="story">
-  <h2>Our Story</h2>
-  <p class="tagline"><strong>More than 40 years of food, family, and tradition in Beaver County.</strong></p>
+<section class="story-wrap" id="story">
+  <div class="section-shell">
+    <div class="story">
+      <h2>Our Story</h2>
+      <p class="tagline"><strong>More than 40 years of food, family, and tradition in Beaver County.</strong></p>
 
-  <p>
-    Ambridge Italian Villa has been serving the community for decades — and we’re known far and wide for our
-    gyro sandwich that’s hard to beat in size, quality, or taste.
-  </p>
+      <p>
+        Ambridge Italian Villa has been serving the community for decades — and it’s known far and wide for a gyro
+        sandwich that’s hard to beat in size, quality, or taste.
+      </p>
 
-  <p>
-    An immigrant Greek family purchased the business in 1978 and transformed a pizza parlor into a place for
-    sit-down service, carryout, and the kind of comfort food that keeps people coming back.
-  </p>
+      <p>
+        An immigrant Greek family purchased the business in 1978 and transformed a pizza parlor into a place for
+        sit-down service, carryout, and the kind of comfort food that keeps people coming back.
+      </p>
 
-  <p>
-    In 2000, the Villa was passed to the next generation — <strong>John Palavros</strong> (chef) and
-    <strong>Amy Palavros</strong> (pastry chef) — who expanded the menu with fresh, homemade food and added
-    delivery, catering, and more ways to serve the community.
-  </p>
+      <p>
+        In 2000, the Villa was passed to the next generation — <strong>John Palavros</strong> and
+        <strong>Amy Palavros</strong> — who expanded the menu with fresh homemade food, bakery offerings,
+        catering, and more ways to serve the community.
+      </p>
 
-  <div class="highlight">
-    Come join us for breakfast, lunch, dinner, or a late-night bite — where food, quality, price, and service come first.
+      <div class="highlight">
+        Come join us for breakfast, lunch, dinner, or a late-night bite — where food, quality, value, and service come first.
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- EMAIL SIGNUP -->
-<section class="signup" id="signup">
-  <h2>Join the Villa Family</h2>
-  <p>
-    Get special offers, weekly features, and catering updates — delivered straight to your inbox.
-  </p>
+<!-- HOURS + CONTACT -->
+<section class="info-section" id="visit">
+  <div class="section-shell">
+    <h2 class="section-title">Visit, Call, or Order Online</h2>
+    <p class="section-sub">
+      This replaces the weak email signup with something more useful for restaurant customers:
+      hours, location, ordering, and direct contact.
+    </p>
 
-  <!-- Replace action="" later when you connect your email collection -->
-  <form action="" method="post">
-    <input type="email" name="email" placeholder="Your Email" required>
-    <button type="submit">Sign Up</button>
-  </form>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Hours & Contact</h3>
+
+        <div class="hours-list">
+          <div class="hours-row"><strong>Monday</strong><span>10:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Tuesday</strong><span>10:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Wednesday</strong><span>10:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Thursday</strong><span>10:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Friday</strong><span>10:00 AM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Saturday</strong><span>12:00 PM – 9:00 PM</span></div>
+          <div class="hours-row"><strong>Sunday</strong><span>Closed</span></div>
+        </div>
+
+        <div class="contact-stack" style="margin-top:1.1rem;">
+          <p><strong>Phone:</strong> (724) 266-1919</p>
+          <p><strong>Address:</strong> 1710 Duss Ave, Ambridge, PA 15003</p>
+          <p><strong>Best for:</strong> dine-in, takeout, catering, bakery orders, and food truck updates</p>
+        </div>
+
+        <div class="contact-actions">
+          <a class="btn primary" href="tel:17242661919">Call Now</a>
+          <a class="btn secondary" target="_blank" rel="noopener"
+             href="https://www.toasttab.com/local/order/ambridge-italian-villa-1710-duss-ave">
+            Order Online
+          </a>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>Find Us</h3>
+        <iframe
+          class="map-frame"
+          src="https://www.google.com/maps?q=1710%20Duss%20Ave%2C%20Ambridge%2C%20PA%2015003&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Map of Ambridge Italian Villa">
+        </iframe>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  © 2026 Ambridge Italian Villa — Ambridge, PA
+  <strong>Ambridge Italian Villa</strong> © 2026 — Ambridge, PA
 </footer>
 
 </body>
